@@ -13,6 +13,7 @@ import $ from "jquery";
 import MakeCancelablePromise from "../../util/cancelfetch";
 import { XNavigation } from "../../component";
 import { Scrollbars } from "react-custom-scrollbars";
+import screenfull from 'screenfull';
 import "./mainLayout.less";
 import "../../../css/form/form.less";
 import "../../../css/common.less";
@@ -49,14 +50,12 @@ const menu = (
   </Menu>
 );
 export default class MainLayout extends Component {
-  // 全屏？
+  //  全屏显示
   screenFull = () => {
-    let screenfull = $.AMUI.fullscreen;
     if (screenfull.enabled) {
       screenfull.request();
-    } else {
-      // Ignore or do something else
     }
+
   };
 
   state = {
@@ -97,9 +96,9 @@ export default class MainLayout extends Component {
               </div>
               <XNavigation
                 ref={e => (this.navigation = e)}
-                // menuClick={(icon, title, url) => {
-                //   this.refs.worktab.createTab(icon, title, url);
-                // }}
+              // menuClick={(icon, title, url) => {
+              //   this.refs.worktab.createTab(icon, title, url);
+              // }}
               />
             </Sider>
             <Layout>
@@ -118,6 +117,7 @@ export default class MainLayout extends Component {
                   onSearch={this.search}
                   className="search_menu"
                 />
+                <Icon type="arrows-alt" onClick={this.screenFull} />
                 <div className="right_link">
                   <Dropdown overlay={menu} trigger={["click"]}>
                     <span className="ant-dropdown-link">
@@ -136,7 +136,7 @@ export default class MainLayout extends Component {
                   minHeight: 280
                 }}
               >
-                {React.Children.map(this.props.children, function(child) {
+                {React.Children.map(this.props.children, function (child) {
                   return <div>{child}</div>;
                 })}
               </Content>

@@ -7,6 +7,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
+import Draggable, { DraggableCore } from 'react-draggable';
 
 class NormalLoginForm extends React.Component {
   handleSubmit = (e) => {
@@ -292,23 +293,31 @@ export default class FormBasic extends Component {
     return (
       <div id="Form">
         <Row gutter={16}>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-            <div className="form-block">
-              <div className="form-demo-title">简单登录表单</div>
-              <WrappedNormalLoginForm />
-            </div></Col>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12}> <div className="form-block">
-            <div className="form-demo-title">表单布局</div>
-            <FormLayoutDemo />
-          </div> 
-           </Col>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}><div className="form-block">
-            <div className="form-demo-title">校验表单</div>
-            <WrappedDemo />
-          </div>
-           </Col>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12} className="col-margin"> 
+            <Draggable  >
+              <div className="form-block">
+                <div className="form-demo-title">简单登录表单</div>
+                <WrappedNormalLoginForm />
+              </div>
+            </Draggable>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12} className="col-margin">
+            <Draggable  >
+              <div className="form-block">
+                <div className="form-demo-title">表单布局</div>
+                <FormLayoutDemo />
+              </div>
+            </Draggable>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} className="col-margin"> 
+            <Draggable  >
+              <div className="form-block">
+                <div className="form-demo-title">校验表单</div>
+                <WrappedDemo />
+              </div>
+            </Draggable>
+          </Col>
         </Row>
-
       </div>
     )
   }

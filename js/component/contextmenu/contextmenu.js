@@ -14,9 +14,14 @@ export default class XContextMenu extends React.Component {
         display: "none"
       }
     };
-    document.body.addEventListener("click", this.fn, false);
   }
 
+  componentDidMount(){
+    document.body.addEventListener("click", this.fn, false);
+  }
+  componentWillUnmount(){
+    document.body.removeEventListener("click", this.fn, false);
+  }
   fn = e => {
     e = e || window.event;
     this.no();

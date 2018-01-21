@@ -5,6 +5,15 @@ import FormBasic from './Views/FormBasic';
 import FormManage from './Views/FormManage';
 import TableBasic from './Views/TableBasic';
 import XSalaryManage from './Views/TableComplex';
+import XDrag from './Views/Drag';
+import MyEditor from './Views/MyEditor';
+import BasicAnimation from './Views/animation/BasicAnimation';
+import ExampleAnimations from './Views/animation/ExampleAnimations';
+import XEcharts from './Views/charts/Echarts';
+import RightContextmenu from './Views/RightContextmenu';
+
+import Todo from './Views/todos/components/App';
+
 import CarouselBasic from './Views/CarouselBasic';
 import CollapseBasic from './Views/CollapseBasic';
 import ModalBasic from './Views/ModalBasic';
@@ -37,6 +46,28 @@ const App = ({ location,routes, params, children }) => {
   if (path == '/table2') {
     View = XSalaryManage;
   }
+  if (path == '/drag') {
+    View = XDrag;
+  }
+  if (path == '/draft') {
+    View = MyEditor;
+  }
+  if (path == '/basicAnimate') {
+    View = BasicAnimation;
+  }
+  if (path == '/exmapleAnimate') {
+    View = ExampleAnimations;
+  } 
+  if (path == '/echarts') {
+    View = XEcharts;
+  }
+  if (path == '/todo') {
+    View = Todo;
+  }
+  if (path == '/contextmenu') {
+    View = RightContextmenu;
+  }
+  
   if (path == '/carousel') {
     View = CarouselBasic;
   }

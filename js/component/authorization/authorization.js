@@ -61,7 +61,7 @@ export default class XAuthorization extends React.Component {
             </div>;
         }
         else {
-            dom = <div></div>;
+            dom = <div>登陆之后才有权限看哦</div>;
             this.requestPermission();
         }
         return dom;
