@@ -1,6 +1,6 @@
 export default class MakeCancelablePromise {
     //服务地址
-    static nodeserver =" http://192.168.100.9:8099/" ;//本地服务器
+    static nodeserver =" http://192.168.30.218:8099/" ;//本地服务器
     // 设备手册
     static makeCancelable(promise) {
         console.log('promise', promise)

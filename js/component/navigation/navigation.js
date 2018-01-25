@@ -1,14 +1,15 @@
 import React from "react";
-import { Menu, Icon, Spin, Button,Breadcrumb  } from "antd";
+import { Menu, Icon, Spin, Button, Breadcrumb,Input } from "antd";
 import $ from "jquery";
 import Request from "../../util/ajax";
 import FontAwesome from "react-fontawesome";
 import "../../../css/common.less";
 import MakeCancelablePromise from "../../util/cancelfetch";
 import { Router, Route, IndexRoute, Link } from "react-router";
-
 const SubMenu = Menu.SubMenu;
-let ary = [], openKeysArray = [];
+const Search = Input.Search;
+let ary = [],
+  openKeysArray = [];
 
 //导航菜单
 export default class XNavigation extends React.Component {
@@ -148,7 +149,10 @@ export default class XNavigation extends React.Component {
           <SubMenu
             key={menu.id}
             title={
-              <span><Icon type={menu.icon} /><span>{menu.name}</span></span>
+              <span>
+                <Icon type={menu.icon} />
+                <span>{menu.name}</span>
+              </span>
             }
           >
             {children}
@@ -160,6 +164,7 @@ export default class XNavigation extends React.Component {
             key={menu.id}
             data-name={menu.name}
             data-url={menu.url}
+            data-icon={menu.icon}
           >
             <Link to={menu.url}>
               <Icon type={menu.icon} />
@@ -186,21 +191,36 @@ export default class XNavigation extends React.Component {
     else {
       var nodes = this.createNodes(this.state.data);
       return (
-     <Menu
-          selectedKeys={this.state.selectedKeys}
-          openKeys={this.state.openKeys}
-          mode="inline"
-          theme="dark"
-          onOpenChange={this.onOpenChange}
-          onClick={(item, key, keyPath) => {
-            this.setState({
-              selectedKeys: [item.key]
-            });
-            // var props = item.item.props; this.props.menuClick(props.children[0].props.name, props['data-name'], props['data-url'])
-          }}
-        >
-          {nodes}
-        </Menu>
+        <div className="search_menu">
+          <Search
+            placeholder="搜索"
+            style={{ width: 230, margin: 10 }}
+            onSearch={this.search}
+            className="search_menu"
+          />
+          <Menu
+            selectedKeys={this.state.selectedKeys}
+            openKeys={this.state.openKeys}
+            mode="inline"
+            theme="dark"
+            onOpenChange={this.onOpenChange}
+            onClick={item => {
+              this.setState({
+                selectedKeys: [item.key]
+              });
+              console.log("props", item);
+
+              var props = item.item.props;
+              this.props.menuClick(
+                props["data-icon"],
+                props["data-name"],
+                props["data-url"]
+              );
+            }}
+          >
+            {nodes}
+          </Menu>
+        </div>
       );
     }
   }

@@ -15,12 +15,12 @@ import {
   TreeSelect,
   DatePicker
 } from "antd";
-import { XTitle, XSubmitButton, XIntlProvider } from "../../component";
-import XInfo from "../../util/infomation";
+import { XTitle, XSubmitButton, XIntlProvider } from "../../../component";
+import XInfo from "../../../util/infomation";
 import { FormattedMessage } from "react-intl";
-import NorthCenter from "../../layout/latest-northcenter";
-import Request from "../../util/ajax";
-import XSalaryTable from "../../util/tableb";
+import NorthCenter from "../../../layout/latest-northcenter";
+import Request from "../../../util/ajax";
+import XSalaryTable from "../../../util/tableb";
 // import XSalaryForm from "./salaryForm";
 import $ from "jquery";
 import moment from "moment";

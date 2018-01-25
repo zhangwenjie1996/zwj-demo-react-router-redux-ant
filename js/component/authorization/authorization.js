@@ -53,18 +53,21 @@ export default class XAuthorization extends React.Component {
     }
 
     render() {
-        let dom;
-        console.log("renderpermission", this.state.permission,this.state.loaded )
-        if (this.state.loaded) {
-            dom = <div>
-                {this.props.children}
-            </div>;
-        }
-        else {
-            dom = <div>登陆之后才有权限看哦</div>;
-            this.requestPermission();
-        }
-        return dom;
+        // let dom;
+        // console.log("renderpermission", this.state.permission,this.state.loaded )
+        // if (this.state.loaded) {
+        //     dom = <div>
+        //         {this.props.children}
+        //     </div>;
+        // }
+        // else {
+        //     dom = <div>sorry,你当前没有该权限哦</div>;
+        //     this.requestPermission();
+        // }
+        // return dom;
+        return    <div>
+        {this.props.children}
+    </div>;
     }
 }
 

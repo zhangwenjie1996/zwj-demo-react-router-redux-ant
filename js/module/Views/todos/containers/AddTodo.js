@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'antd';
 import { connect } from 'react-redux'
-import { addTodo } from '../actions'
+import { addTodo } from '../../../../actions'
 
 let AddTodo = ({ dispatch }) => {
   let input
@@ -18,8 +18,8 @@ let AddTodo = ({ dispatch }) => {
       }}>
         <input ref={node => {
           input = node
-        }} style={{width:200,height:32}}/>
-         <button type="submit" style={{width:80,height:32,background:"#1890ff",color:"white",marginLeft:20}}>
+        }} style={{width:200,height:32,border:"1px solid gainsboro",borderRadius:4}}/>
+         <button type="submit" style={{width:80,height:32,background:"#1890ff",color:"white",marginLeft:20,border:"none",borderRadius:4}}>
           添加任务
         </button>
       </form>

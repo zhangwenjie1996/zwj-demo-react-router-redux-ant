@@ -9,14 +9,19 @@ import {
   Icon,
   Input,
   TreeSelect,
-  Select
+  Select,
+  DatePicker,
+  Checkbox, Radio,  InputNumber, Switch,
+  Slider, Upload, Rate
 } from "antd";
 import { FormattedMessage } from "react-intl";
-import Request from "../../util/ajax";
-import MakeCancelablePromise from "../../util/cancelfetch";
+import MakeCancelablePromise from "../../../util/cancelfetch";
 
 const FormItem = Form.Item;
 const TreeNode = TreeSelect.TreeNode;
+const Option = Select.Option;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 const formItemLayout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 }
@@ -245,7 +250,7 @@ class FormL extends React.Component {
             sm={{ span: 16, offset: 4 }}
             md={{ span: 12, offset: 0 }}
             lg={{ span: 8, offset: 0 }}
-            xl={{ span: 8, offset: 0 }}
+            xl={{ span: 6, offset: 0 }}
           >
             <FormItem
               style={{ marginBottom: 8 }}
@@ -261,7 +266,7 @@ class FormL extends React.Component {
             sm={{ span: 16, offset: 4 }}
             md={{ span: 12, offset: 0 }}
             lg={{ span: 8, offset: 0 }}
-            xl={{ span: 8, offset: 0 }}
+            xl={{ span: 6, offset: 0 }}
           >
             <FormItem
               style={{ marginBottom: 8 }}
@@ -277,7 +282,7 @@ class FormL extends React.Component {
             sm={{ span: 16, offset: 4 }}
             md={{ span: 12, offset: 0 }}
             lg={{ span: 8, offset: 0 }}
-            xl={{ span: 8, offset: 0 }}
+            xl={{ span: 6, offset: 0 }}
           >
             <FormItem
               style={{ marginBottom: 8 }}
@@ -293,7 +298,7 @@ class FormL extends React.Component {
             sm={{ span: 16, offset: 4 }}
             md={{ span: 12, offset: 0 }}
             lg={{ span: 8, offset: 0 }}
-            xl={{ span: 8, offset: 0 }}
+            xl={{ span: 6, offset: 0 }}
           >
             <FormItem
               style={{ marginBottom: 8 }}
@@ -309,7 +314,7 @@ class FormL extends React.Component {
             sm={{ span: 16, offset: 4 }}
             md={{ span: 12, offset: 0 }}
             lg={{ span: 8, offset: 0 }}
-            xl={{ span: 8, offset: 0 }}
+            xl={{ span: 6, offset: 0 }}
           >
             <FormItem
               style={{ marginBottom: 8 }}
@@ -324,7 +329,7 @@ class FormL extends React.Component {
             sm={{ span: 16, offset: 4 }}
             md={{ span: 12, offset: 0 }}
             lg={{ span: 8, offset: 0 }}
-            xl={{ span: 8, offset: 0 }}
+            xl={{ span: 6, offset: 0 }}
           >
             <FormItem
               style={{ marginBottom: 8 }}
@@ -344,71 +349,212 @@ class FormL extends React.Component {
 const LayoutForm = Form.create()(FormL);
 
 class FormL2 extends React.Component {
+  // render() {
+  //   const { getFieldDecorator } = this.props.form;
+
+  //   return (
+  //     <Form style={{maxWidth:800,margin:"auto"}} >
+  //       <Row>
+  //         <Col sm={{ span: 16, offset: 4 }}>
+  //           <FormItem
+  //             {...formItemLayout}
+  //             label={<FormattedMessage id="applyInvoiceNo" />}
+  //             hasFeedback
+  //             for="storageInInvoiceID"
+  //           >
+  //             <Input placeholder="" id="applyInvoiceNo" />
+  //           </FormItem>
+  //         </Col>
+  //         <Col sm={{ span: 16, offset: 4 }}>
+  //           <FormItem
+  //             {...formItemLayout}
+  //             label={<FormattedMessage id="applyInvoiceName" />}
+  //             hasFeedback
+  //             for="storageInInvoiceID"
+  //           >
+  //             <Input placeholder="" id="applyInvoiceName" />
+  //           </FormItem>
+  //         </Col>
+  //         <Col sm={{ span: 16, offset: 4 }}>
+  //           <FormItem
+  //             {...formItemLayout}
+  //             label={<FormattedMessage id="invoiceState" />}
+  //             hasFeedback
+  //             for="applyInvoiceState"
+  //           >
+  //             <Input placeholder="" id="applyInvoiceName" />
+  //           </FormItem>
+  //         </Col>
+  //         <Col sm={{ span: 16, offset: 4 }}>
+  //           <FormItem
+  //             {...formItemLayout}
+  //             label={<FormattedMessage id="applyOrginName" />}
+  //             hasFeedback
+  //             for="storageInInvoiceID"
+  //           >
+  //             <Input placeholder="" id="applyOrginName" />
+  //           </FormItem>
+  //         </Col>
+  //         <Col sm={{ span: 16, offset: 4 }}>
+  //           <FormItem
+  //             {...formItemLayout}
+  //             label={<FormattedMessage id="startTime" />}
+  //             hasFeedback
+  //           >
+  //            <DatePicker
+  //     showTime
+  //     format="YYYY-MM-DD HH:mm:ss"
+  //     placeholder="Select Time"
+  //   />
+  //           </FormItem>
+  //         </Col>
+  //         <Col sm={{ span: 16, offset: 4 }}>
+  //           <FormItem
+  //             {...formItemLayout}
+  //             label={<FormattedMessage id="abortTime" />}
+  //             hasFeedback
+  //           >
+  //                  <DatePicker
+  //     showTime
+  //     format="YYYY-MM-DD HH:mm:ss"
+  //     placeholder="Select Time"
+  //   />
+  //           </FormItem>
+  //         </Col>
+  //       </Row>
+  //     </Form>
+  //   );
+  // }
+  
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+  normFile = (e) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
-
+    const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 },
+    };
     return (
-      <Form  >
-        <Row>
-          <Col sm={{ span: 16, offset: 4 }}>
-            <FormItem
-              {...formItemLayout}
-              label={<FormattedMessage id="applyInvoiceNo" />}
-              hasFeedback
-              for="storageInInvoiceID"
-            >
-              <Input placeholder="" id="applyInvoiceNo" />
-            </FormItem>
-          </Col>
-          <Col sm={{ span: 16, offset: 4 }}>
-            <FormItem
-              {...formItemLayout}
-              label={<FormattedMessage id="applyInvoiceName" />}
-              hasFeedback
-              for="storageInInvoiceID"
-            >
-              <Input placeholder="" id="applyInvoiceName" />
-            </FormItem>
-          </Col>
-          <Col sm={{ span: 16, offset: 4 }}>
-            <FormItem
-              {...formItemLayout}
-              label={<FormattedMessage id="invoiceState" />}
-              hasFeedback
-              for="applyInvoiceState"
-            >
-              <Input placeholder="" id="applyInvoiceName" />
-            </FormItem>
-          </Col>
-          <Col sm={{ span: 16, offset: 4 }}>
-            <FormItem
-              {...formItemLayout}
-              label={<FormattedMessage id="applyOrginName" />}
-              hasFeedback
-              for="storageInInvoiceID"
-            >
-              <Input placeholder="" id="applyOrginName" />
-            </FormItem>
-          </Col>
-          <Col sm={{ span: 16, offset: 4 }}>
-            <FormItem
-              {...formItemLayout}
-              label={<FormattedMessage id="startTime" />}
-              hasFeedback
-            >
-              <Input placeholder="" id="applyInvoiceName" />
-            </FormItem>
-          </Col>
-          <Col sm={{ span: 16, offset: 4 }}>
-            <FormItem
-              {...formItemLayout}
-              label={<FormattedMessage id="abortTime" />}
-              hasFeedback
-            >
-              <Input placeholder="" id="applyInvoiceName" />
-            </FormItem>
-          </Col>
-        </Row>
+      <Form onSubmit={this.handleSubmit}  style={{maxWidth:800,margin:"auto"}} >
+        <FormItem
+          {...formItemLayout}
+          label="Plain Text"
+        >
+          <span className="ant-form-text">China</span>
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Select"
+          hasFeedback
+        >
+          {getFieldDecorator('select', {
+            rules: [
+              { required: true, message: 'Please select your country!' },
+            ],
+          })(
+            <Select placeholder="Please select a country">
+              <Option value="china">China</Option>
+              <Option value="use">U.S.A</Option>
+            </Select>
+            )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Select[multiple]"
+        >
+          {getFieldDecorator('select-multiple', {
+            rules: [
+              { required: true, message: 'Please select your favourite colors!', type: 'array' },
+            ],
+          })(
+            <Select mode="multiple" placeholder="Please select favourite colors">
+              <Option value="red">Red</Option>
+              <Option value="green">Green</Option>
+              <Option value="blue">Blue</Option>
+            </Select>
+            )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="InputNumber"
+        >
+          {getFieldDecorator('input-number', { initialValue: 3 })(
+            <InputNumber min={1} max={10} />
+          )}
+          <span className="ant-form-text"> machines</span>
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Switch"
+        >
+          {getFieldDecorator('switch', { valuePropName: 'checked' })(
+            <Switch />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Slider"
+        >
+          {getFieldDecorator('slider')(
+            <Slider marks={{ 0: 'A', 20: 'B', 40: 'C', 60: 'D', 80: 'E', 100: 'F' }} />
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Radio.Group"
+        >
+          {getFieldDecorator('radio-group')(
+            <RadioGroup>
+              <Radio value="a">item 1</Radio>
+              <Radio value="b">item 2</Radio>
+              <Radio value="c">item 3</Radio>
+            </RadioGroup>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="Radio.Button"
+        >
+          {getFieldDecorator('radio-button')(
+            <RadioGroup>
+              <RadioButton value="a">item 1</RadioButton>
+              <RadioButton value="b">item 2</RadioButton>
+              <RadioButton value="c">item 3</RadioButton>
+            </RadioGroup>
+          )}
+        </FormItem>
+ 
+        <FormItem
+          {...formItemLayout}
+          label="Date.picker"
+        >
+          {getFieldDecorator('date-picker')(
+             <DatePicker
+      showTime
+      format="YYYY-MM-DD HH:mm:ss"
+      placeholder="Select Time"
+    />
+          )}
+        </FormItem>
       </Form>
     );
   }
@@ -418,7 +564,7 @@ const LayoutForm2 = Form.create()(FormL2);
 class FormL3 extends React.Component {
   render() {
     return (
-      <Form className="form5 ">
+      <Form className="form5 " style={{maxWidth:800,margin:"auto"}} >
         <Row>
           <Col
             xs={{ span: 16, offset: 4 }}

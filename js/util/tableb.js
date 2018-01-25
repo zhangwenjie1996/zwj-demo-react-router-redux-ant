@@ -25,14 +25,6 @@ export default class XTable extends React.Component {
     }
   }
 
-  // defaultSelect = (selectedRowKeys, selectedRows) => {
-  //     console.log("defaultSelect", selectedRowKeys, selectedRows)
-  //     this.onSelectChange(selectedRowKeys, selectedRows)
-  //     // this.setState({
-  //     //     selectedRowKeys: [3, 4],
-  //     // })
-  // }
-
   onChangeOne = () => {
     this.setState({
       selectedRowKeys: [],
@@ -107,7 +99,7 @@ export default class XTable extends React.Component {
       return item;
     });
     const { selectedRowKeys, selectedRows } = this.state;
-    const { type } = this.props;
+    let { type, rowClassName, data, current, reloadData } = this.props;
     const rowSelection = {
       type: type || "radio", //单复选 不写默认单选
       selectedRowKeys,
@@ -116,29 +108,28 @@ export default class XTable extends React.Component {
       onChange: this.onSelectChange
     };
 
-    let total =
-      this.props.data && this.props.data.total ? this.props.data.total : 0;
+    let total = data && data.total ? data.total : 0;
 
     const pagination = {
       total: total,
       showSizeChanger: true,
-      current: this.props.current,
+      current: current,
       onShowSizeChange: (current, pageSize) => {
-        this.props.reloadData ? this.props.reloadData(current, pageSize) : null;
+        reloadData ? reloadData(current, pageSize) : null;
       },
       // 分页、排序、筛选变化时触发
       onChange: (current, pageSize) => {
-        this.props.reloadData ? this.props.reloadData(current, pageSize) : null;
+        reloadData ? reloadData(current, pageSize) : null;
       }
     };
 
     const modalPagination = {
       total: total,
       showSizeChanger: false,
-      current: this.props.current,
+      current: current,
       // 分页、排序、筛选变化时触发
       onChange: (current, pageSize) => {
-        this.props.reloadData ? this.props.reloadData(current, pageSize) : null;
+        reloadData ? reloadData(current, pageSize) : null;
       },
       defaultPageSize: 5,
       pageSize: 5,
@@ -159,21 +150,21 @@ export default class XTable extends React.Component {
     //   onMouseEnter: () => {},
     //   onMouseLeave: () => {},
     // })} />
-    let dataSource =
-      this.props.data && this.props.data.rows
-        ? this.props.data.rows
-        : this.props.data;
+    let dataSource = data && data.rows ? data.rows : data;
     dataSource = JSON.stringify(dataSource) == "{}" ? [] : dataSource;
     return (
       <div className="tableEllipsis">
         <Table
           bordered
+          rowClassName={rowClassName}
           scroll={this.props.scroll}
           rowSelection={this.props.rowSelection == "null" ? null : rowSelection}
           columns={newColumns}
           onRow={(record, index) => ({
             onClick: () => {
-                this.props.onRowClick?this.props.onRowClick(record, index):null;
+              this.props.onRowClick
+                ? this.props.onRowClick(record, index)
+                : null;
             }
           })}
           onChange={this.props.onChange}

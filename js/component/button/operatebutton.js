@@ -33,13 +33,12 @@ export default class XOperateButton extends XIntlProvider {
         console.log("button this.props.page",this.props.page)// post 
         return (
             <div className='button-group ' >
-                <XAuthorize>
+                {/* <XAuthorize> */}
                     <Button style={{display:this.props.hideSel==undefined?"inline-block":"none"}} id={this.props.page + "_sel"} type="primary" className='selBtn' onClick={this.selClick} ><Icon type="eye-o" className="iconStyle"/><FormattedMessage id='view' /></Button>               
                     <Button style={{display:this.props.hideAdd==undefined?"inline-block":"none"}} id={this.props.page + "_add"} type="primary" className='addBtn' onClick={this.addClick} ><Icon type="plus"  className="iconStyle"/><FormattedMessage id='add' /></Button>
                     <Button style={{display:this.props.hideDel==undefined?"inline-block":"none"}} id={this.props.page + "_del"} type="primary" className='delBtn' onClick={this.delClick} ><Icon type="delete"  className="iconStyle"/><FormattedMessage id='delete' /></Button>
                     <Button style={{display:this.props.hideEdit==undefined?"inline-block":"none"}} id={this.props.page + "_edit"} type="primary" className='editBtn' onClick={this.editClick} ><Icon type="edit" className="iconStyle" /><FormattedMessage id='edit' /></Button>
-                    <Button style={{display:this.props.hideQrcode==undefined?"none":"inline-block"}} id={this.props.page + "_qr"} type="primary" className='qrBtn' onClick={this.qrCodeClick} ><Icon type="qrcode" className="iconStyle" />二维码</Button>
-                </XAuthorize>
+                {/* </XAuthorize> */}
             </div>
         )
     }

@@ -1,19 +1,11 @@
 import React, { Component, PropTypes } from "react";
 import { Router, Route, IndexRoute, Link } from "react-router";
-import {
-  Layout,
-  Menu,
-  Icon,
-  Input,
-  LocaleProvider,
-  Dropdown,
-  Breadcrumb
-} from "antd";
+import { Layout, Menu, Icon, LocaleProvider, Dropdown, Breadcrumb } from "antd";
 import $ from "jquery";
 import MakeCancelablePromise from "../../util/cancelfetch";
-import { XNavigation } from "../../component";
+import { XNavigation, XWorktab } from "../../component";
 import { Scrollbars } from "react-custom-scrollbars";
-import screenfull from 'screenfull';
+import screenfull from "screenfull";
 import "./mainLayout.less";
 import "../../../css/form/form.less";
 import "../../../css/common.less";
@@ -22,30 +14,27 @@ import "../../../css/common.less";
 import { IntlProvider, FormattedMessage } from "react-intl";
 import Context from "../../util/context";
 // import  "../../../node_modules/screenfull/dist/screenfull.js"
-const { Header, Sider, Content } = Layout;
-const Search = Input.Search;
+const { Header, Sider, Content,Footer} = Layout;
 
 const menu = (
   <Menu>
     <Menu.Item>
-      <a>
-        <Icon type="link" />&nbsp;&nbsp;我的账号
-      </a>
+      <Link>
+        <Icon type="link" style={{ marginRight: 6 }} />
+        <span>我的账号</span>
+      </Link>
     </Menu.Item>
     <Menu.Item>
-      <a>
-        <Icon type="unlock" />&nbsp;&nbsp;密码设置
-      </a>
+      <Link>
+        <Icon type="unlock" style={{ marginRight: 6 }} />
+        <span>密码设置</span>
+      </Link>
     </Menu.Item>
     <Menu.Item>
-      <a
-        onClick={() => {
-          sessionStorage.setItem("token", undefined);
-          top.location.href = "login.html";
-        }}
-      >
-        <Icon type="logout" />&nbsp;&nbsp;退出登录
-      </a>
+      <Link to="/login">
+        <Icon type="logout" style={{ marginRight: 6 }} />
+        <span>退出登录</span>
+      </Link>
     </Menu.Item>
   </Menu>
 );
@@ -55,7 +44,6 @@ export default class MainLayout extends Component {
     if (screenfull.enabled) {
       screenfull.request();
     }
-
   };
 
   state = {
@@ -66,11 +54,6 @@ export default class MainLayout extends Component {
     this.setState({
       collapsed: !this.state.collapsed
     });
-  };
-
-  // 搜索菜单
-  search = value => {
-    this.navigation.search(value);
   };
 
   render() {
@@ -94,12 +77,7 @@ export default class MainLayout extends Component {
                   <h1>ZWJ ADMIN</h1>
                 </a>
               </div>
-              <XNavigation
-                ref={e => (this.navigation = e)}
-              // menuClick={(icon, title, url) => {
-              //   this.refs.worktab.createTab(icon, title, url);
-              // }}
-              />
+              {this.props.children[0]}
             </Sider>
             <Layout>
               <Header
@@ -111,14 +89,8 @@ export default class MainLayout extends Component {
                   type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
                   onClick={this.toggle}
                 />
-                <Search
-                  placeholder="搜索"
-                  style={{ width: 230, margin: 10 }}
-                  onSearch={this.search}
-                  className="search_menu"
-                />
-                <Icon type="arrows-alt" onClick={this.screenFull} />
                 <div className="right_link">
+                  <Icon type="arrows-alt" onClick={this.screenFull} />
                   <Dropdown overlay={menu} trigger={["click"]}>
                     <span className="ant-dropdown-link">
                       <span className="ant-avatar ant-avatar-circle ant-avatar-image">
@@ -132,14 +104,15 @@ export default class MainLayout extends Component {
               <Content
                 style={{
                   margin: "24px 16px",
-                  padding: 24,
                   minHeight: 280
                 }}
               >
-                {React.Children.map(this.props.children, function (child) {
+                {this.props.children[1]}
+                {/* {React.Children.map(this.props.children, function(child) {
                   return <div>{child}</div>;
-                })}
+                })} */}
               </Content>
+              <Footer style={{ textAlign: "center" }}>这里是Footer...</Footer>
             </Layout>
           </Layout>
         </IntlProvider>

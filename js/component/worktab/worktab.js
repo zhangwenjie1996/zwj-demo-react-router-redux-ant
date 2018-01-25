@@ -12,6 +12,8 @@ import { XAuthorization ,XContextMenu } from "../../component";
 import { IntlProvider } from "react-intl";
 import Context from "../../util/context";
 import { FormattedMessage } from "react-intl";
+import "../../../css/common.less";
+
 //导航菜单
 var p;
 let closePanel;
@@ -23,7 +25,7 @@ export default class XWorktab extends React.Component {
       {
         icon: "windows",
         title: "欢迎",
-        content: <XTabcontent url="./view/welcome.html" />,
+        content: this.props.View,
         key: this.tabKey("欢迎")
       }
     ];
@@ -67,6 +69,7 @@ export default class XWorktab extends React.Component {
   };
   //创建新的标签
   createTab = (icon, title, url) => {
+    console.log("createTab", this.props.View,icon, title, url)
     const panels = this.state.panels;
     const key = this.tabKey(title);
     let match = ArrayFind.find(panels, item => {
@@ -79,7 +82,7 @@ export default class XWorktab extends React.Component {
       panels.push({
         icon: icon,
         title: title,
-        content: <XTabcontent className="abc" url={url} base={this} />,
+        content:  this.props.View,
         key: key
       });
       this.setState({ panels, activeKey: key }, () => {
@@ -131,7 +134,7 @@ export default class XWorktab extends React.Component {
       {
         icon: "windows",
         title: "欢迎",
-        content: <XTabcontent url="./view/welcome.html" />,
+        content:  this.props.View,
         key: this.tabKey("欢迎")
       }
     ];
@@ -198,6 +201,7 @@ export default class XWorktab extends React.Component {
   };
 
   render() {
+    console.log("this.state.panels",this.state.panels)
     var jsx = (
       <LocaleProvider locale={new Context().lang.antd}>
         <IntlProvider
@@ -251,7 +255,7 @@ export default class XWorktab extends React.Component {
                         name={pane.icon}
                         size={"2x"}
                         color="#52C0FE"
-                      />{" "}
+                      /> 
                       {pane.title}
                     </span>
                   }

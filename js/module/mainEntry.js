@@ -6,7 +6,7 @@ import Routes from '../routes/index';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import reducer from '../reducers/index.js';
-
+import '../../css/form/form.less'
 let store = createStore(reducer);
  
 ReactDOM.render(<Provider store={store}>

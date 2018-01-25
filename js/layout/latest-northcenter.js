@@ -36,9 +36,9 @@ export default class NorthCenter extends React.Component {
         this.xinfo = this.refs.info;
         const jsx = <LocaleProvider locale={new Context().lang.antd} >
             <IntlProvider locale={navigator.language} messages={new Context().lang.cust}>
-                <XAuthorization page={1}>
+                <XAuthorization page={2}>
                     <XInfo ref="info" />
-                    <Row gutter={16} style={{ margin: 0 }}>
+                    <Row gutter={16} style={{ margin: 0 }}  >
                         <Col xs={this.content.north.xs} sm={this.content.north.sm} md={this.content.north.md} lg={this.content.north.lg}>{this.props.children[0]}</Col>
                         <Col xs={this.content.center.xs} sm={this.content.center.sm} md={this.content.center.md} lg={this.content.center.lg}>{this.props.children[1]}</Col></Row>
                 </XAuthorization>

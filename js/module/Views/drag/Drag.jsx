@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Draggable, {DraggableCore} from 'react-draggable'; 
-import "../../../css/drag.less";
+import "./drag.less";
 export default class XDrag extends Component {
   state=  {
       activeDrags: 0,

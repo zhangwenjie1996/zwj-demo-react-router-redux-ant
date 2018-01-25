@@ -19,8 +19,17 @@ import Context from "../util/context";
 import "./login.less";
 import Request from "../util/ajax";
 import XInfo from "../util/infomation";
-import { Router, Route, IndexRoute, Redirect, IndexRedirect, Link, IndexLink,  browserHistory } from 'react-router';
-import PropTypes from 'prop-types'
+import {
+  Router,
+  Route,
+  IndexRoute,
+  Redirect,
+  IndexRedirect,
+  Link,
+  IndexLink,
+  browserHistory
+} from "react-router";
+import PropTypes from "prop-types";
 
 // console.log(111,(function(x,f=()=>x){
 //   var x;
@@ -37,7 +46,7 @@ import PropTypes from 'prop-types'
 const FormItem = Form.Item;
 
 class NormalLoginForm extends XIntlProvider {
-  handleSubmit = () => { 
+  handleSubmit = () => {
     let data = {};
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -79,9 +88,9 @@ class NormalLoginForm extends XIntlProvider {
                     "organName",
                     encodeURI(encodeURI(result.organName))
                   );
-                  console.log("browserHistory",  browserHistory )
-                  browserHistory.replace('/')   
-                //   window.location.href = "index.html";
+                  console.log("browserHistory", browserHistory);
+                  browserHistory.replace("/");
+                  //   window.location.href = "index.html";
                 }
               };
               option.error = result => {};
@@ -159,9 +168,9 @@ class NormalLoginForm extends XIntlProvider {
             >
               <FormattedMessage id="logIn" />
             </Button>
-            Or 
+            Or
             <a href="">
-              <FormattedMessage id="registerNow" /> 
+              <FormattedMessage id="registerNow" />
             </a>
           </FormItem>
         </Form>
@@ -183,34 +192,24 @@ export default class XLogin extends React.Component {
           <div className="loginArea">
             <header>
               <div className="logoImg">
-                <img src="img/smallLogo.png" />
+                <img src="img/admin.jpg" />
               </div>
-              <p>信息化管理平台</p>
+              <p>ZWJ ADMIN</p>
+              <h2  style={{textAlign:"center"}}>
+                <FormattedMessage id="logIn" />
+              </h2>
             </header>
             <article>
-              <Row style={{ width: "50%", marginLeft: "25%" }}>
+              <Row style={{ maxWidth: 800, margin: "auto" }}>
                 <Col
-                  sm={{ span: 24 }}
-                  md={{ span: 24 }}
-                  lg={{ span: 16 }}
-                  xl={{ span: 16 }}
-                >
-                  <img src="img/leftimg.png" />
-                </Col>
-                <Col
-                  sm={{ span: 24 }}
-                  md={{ span: 24 }}
-                  lg={{ span: 8 }}
-                  xl={{ span: 8 }}
-                  style={{ marginLeft: -80, marginTop: 20 }}
+                  sm={{ span: 12, offset: 6 }}
+                  md={{ span: 12, offset: 6 }}
+                  lg={{ span: 12, offset: 6 }}
+                  xl={{ span: 12, offset: 6 }}
                 >
                   <section>
                     <div className="col-lg-4 col-md-4  col-sm-4 col-xs-12 col-sm-offset-4  col-md-offset-2 col-lg-offset-2">
-                      <div className="page-header">
-                        <h2>
-                          <FormattedMessage id="logIn" />
-                        </h2>
-                      </div>
+                      <div className="page-header" />
                       <XLoginForm />
                     </div>
                   </section>
